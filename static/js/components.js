@@ -343,6 +343,8 @@ var components = function() {
                         if(ui.helper.find('.layout-slider').length>0){//轮播图插件
                             components.initSlider(ui.helper);
                         }
+
+
                     }
                 }
             });
