@@ -133,7 +133,7 @@ var components = function() {
     return {
         init: function() {
         	this.initEvent();
-        	this.initDrag();
+        	this.initLayout();
         },
 
         initEvent: function(){
@@ -156,7 +156,7 @@ var components = function() {
             /*$(window).on('scroll', function(){
                 var docTop = $(document).scrollTop();
                 console.log(docTop)
-                if(docTop>101 || docTop==101){
+                if(docTop>100){
                     $('.components').css({
                         position: 'fixed',
                         top: 0
@@ -170,7 +170,18 @@ var components = function() {
 
         },
 
-        initDrag: function(){
+        initLayout: function(){
+            //初始化初级组件
+            this.initCommonUI();
+            //初始化布局组件
+            //this.initLayoutUI();
+            //初始化高级组件
+            //this.initHighUI();
+            //初始化图片组件
+            //this.initImagesUI();
+        },
+
+        initCommonUI: function(){
             //基础组件
             utils.initDragSort({
                 draggable: '.common-ui .draggable',
@@ -211,6 +222,9 @@ var components = function() {
                     }
                 }
             });
+        },
+
+        initLayoutUI: function(){
             //tab组件
             utils.initDragSort({
                 draggable: '.layout-ui .draggable',
@@ -254,7 +268,10 @@ var components = function() {
                     }
                 }
             });
-        	//高级组件
+        },
+
+        initHighUI: function(){
+            //高级组件
             utils.initDragSort({
                 draggable: '.high-ui .draggable',
                 connectToSortable: '.components-drag .droppable',
@@ -302,6 +319,9 @@ var components = function() {
                     }
                 }
             });
+        },
+
+        initImagesUI: function(){
             //图片组件
             utils.initDragSort({
                 draggable: '.images-ui .draggable',
@@ -332,7 +352,6 @@ var components = function() {
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
-                        console.log(ui.helper.html())
                         ui.helper.css({
                             width: '100%',
                             opacity: 1,
