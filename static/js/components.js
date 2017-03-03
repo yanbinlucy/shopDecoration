@@ -43,7 +43,7 @@ var utils = function(){
                 params.callback && params.callback();
             };
             fr.onerror = function() {
-                params.target.append('<span><img src="' + params.default + '" /><i>x</i></span>');
+                params.target.append('<span><img src="' + params.defaultSrc + '" /><i>x</i></span>');
             };
             fr.readAsDataURL(params.file);
         },
@@ -177,7 +177,7 @@ var components = function() {
                 utils.uploadImg({
                     file: file,
                     target: _parent.find('.upload-wrapper'),
-                    default: '',
+                    defaultSrc: '',
                     callback: function () {
                         //此处解决input file change只执行一次
                         $(_this).replaceWith('<input class="uploadImg" type="file" accept="image/gif,image/png,,image/jpg,,image/jpeg">');
@@ -280,7 +280,7 @@ var components = function() {
             //初始化初级组件
             this.initCommonUI();
             //初始化布局组件
-            //this.initLayoutUI();
+            this.initLayoutUI();
             //初始化高级组件
             this.initHighUI();
             //初始化图片组件

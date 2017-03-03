@@ -343,12 +343,44 @@
     overflow: hidden;
 }
 .layout-pro-list .pro-list li {
-    width: 160px;
-    height: 160px;
+    width: 240px;
+    height: 230px;
     border: 1px solid #d8d8d8;
     float: left;
-    margin-right: 10px;
+    margin-right: 24px;
     margin-bottom: 10px;
+    font-size: 14px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.layout-pro-list .pro-list li:nth-child(4n) {
+    margin-right: 0;
+}
+.pro-list li .img-wrapper {
+    position: relative;
+    width: 240px;
+    height: 120px;
+    overflow: hidden;
+}
+.pro-list li .img-wrapper img {
+    width: 240px;
+    transition: all 1s ease-out;
+}
+.layout-pro-list .pro-list li:hover img {
+    transform: scale(1.1);
+}
+.pro-list li p {
+    margin: 6px 0 6px 12px;
+}
+.pro-list li p a {
+    color: #ff4400;
+    text-decoration: none;
+}
+.pro-list li p a:hover {
+    text-decoration: underline;
+}
+.pro-list li .pl-price {
+    color: #f00;
 }
 /**分页**/
 .layout-page {
@@ -442,6 +474,39 @@
 }
 .layout-slider .slider ol li.current{
     background: #0e1638;
+}
+/**搜索组件**/
+.layout-search {
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #d8d8d8;
+    font-size: 12px;
+    text-align: right;
+}
+.layout-search .layout-search__right {
+    margin-right: 20px;
+}
+.layout-search .layout-search__right input {
+    height: 24px;
+    line-height: 24px;
+    width: 180px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.layout-search .layout-search__right span {
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #f1f1f1;
+    margin-left: -5px;
 }
 /**
 -----------------------------------
