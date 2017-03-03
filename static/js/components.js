@@ -35,6 +35,18 @@ var utils = function(){
                 stop: sstop
             });
         },
+
+        uploadImg: function(params) {
+            var fr = new FileReader();
+            fr.onloadend = function(e) {
+                params.target.append('<span><img src="' + e.target.result + '" /><i>x</i></span>');
+                params.callback && params.callback();
+            };
+            fr.onerror = function() {
+                params.target.append('<span><img src="' + params.default + '" /><i>x</i></span>');
+            };
+            fr.readAsDataURL(params.file);
+        },
         /**
          * 初始化zTree
          * params为参数对象
@@ -142,15 +154,47 @@ var components = function() {
         	$(document).delegate('.del-op', 'click', function(e){
             	$(this).closest('.components-drag').remove();
             });
-            //编辑方法
-            $(document).delegate('.components-op .edit-op', 'click', function(e){
-                _this.editComponents();
+            //轮播图编辑方法
+            $(document).delegate('.slider-images .edit-op', 'click', function(e){
+                curEdit = this;
+                _this.editSliderComponents(this);
             });
             //tab页切换
             $(document).delegate('.layout-tab .layout-tab-nav li', 'click', function(e){
                 e.stopPropagation();
                 var _index = $(this).index();
                 $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
+            });
+            //图片上传
+            $(document).delegate('.uploadImg', 'change', function(e) {
+                e.preventDefault();
+
+                var data = new FormData(),
+                    file = $(this)[0].files[0],
+                    _this = this,
+                    _parent = $(_this).closest('.common-dialog-box');
+                
+                utils.uploadImg({
+                    file: file,
+                    target: _parent.find('.upload-wrapper'),
+                    default: '',
+                    callback: function () {
+                        //此处解决input file change只执行一次
+                        $(_this).replaceWith('<input class="uploadImg" type="file" accept="image/gif,image/png,,image/jpg,,image/jpeg">');
+                    }
+                });
+            });
+            //删除图片上传
+            $(document).delegate('.upload-wrapper i', 'click', function(e){
+                $(this).parent().remove();
+            });
+            //隐藏弹出框
+            $('.close-btn').on('click', function(e){
+                _this.hideMask();
+            });
+            //保存弹出框
+            $('.save-btn span').on('click', function(e){
+                _this.saveDialog();
             });
 
             /*$(window).on('scroll', function(){
@@ -165,9 +209,71 @@ var components = function() {
             });*/
 
         },
-        //统一编辑方法
-        editComponents: function(){
+        //编辑图片方法
+        editSliderComponents: function(obj){
+            var _this = this,
+                _parent = $(obj).closest('.components-drag__show');
 
+            if(_parent.find('.layout-slider ul li').length){
+                var str = '';
+                _parent.find('.layout-slider ul li').each(function(index,item){
+                    var _url = $(item).attr('data-img');
+                    str += '<span><img src="' + _url + '" /><i>x</i></span>';
+                });
+                $('.edit-dialog .upload-wrapper').append(str);
+            }else{
+                $('.upload-wrapper').empty();
+            }
+
+            _this.showMask();
+        },
+
+        //编辑框保存
+        saveDialog: function(){
+            var _parent = null,
+                _this = this;
+            if($(curEdit).closest('.slider-images').length){//如果是保存轮播图
+                _parent = $(curEdit).closest('.slider-images');
+                var imgArr = [],
+                    imgstr = '';
+                $('.upload-wrapper span').each(function(index, item){
+                    var src = $(this).find('img').attr('src');
+                    imgArr.push(src);
+                });
+
+                _parent.find('.slider ul').empty();
+                _parent.find('.slider ol').remove();
+
+                for(var i=0; i<imgArr.length; i++) {
+                    imgstr += '<li data-img="'+imgArr[i]+'">';
+                }
+                _parent.find('.slider ul').append(imgstr);
+
+                _this.initSlider(_parent);
+            }else {
+                _parent = $(curEdit).closest('.components-drag__show');
+            }
+
+            _this.hideMask();
+        },
+        //显示编辑框
+        showMask: function(){
+            $('body').css('overflow', 'hidden');
+            $('.edit-dialog').show();
+            $('.edit-dialog-mask').height($(window).height()).show();
+        },
+        //隐藏编辑框
+        hideMask: function(){
+            $('body').css('overflow', 'auto');
+            $('.edit-dialog').hide();
+            $('.edit-dialog-mask').hide();
+
+            this.clearDialog();
+        },
+
+        //清空编辑框，还原设置
+        clearDialog: function(){
+            $('.upload-wrapper').empty();
         },
 
         initLayout: function(){
@@ -176,9 +282,9 @@ var components = function() {
             //初始化布局组件
             //this.initLayoutUI();
             //初始化高级组件
-            //this.initHighUI();
+            this.initHighUI();
             //初始化图片组件
-            //this.initImagesUI();
+            this.initImagesUI();
         },
 
         initCommonUI: function(){

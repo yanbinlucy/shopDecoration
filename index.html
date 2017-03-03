@@ -218,7 +218,7 @@
 	            <div class="images-ui">
 	                <p class="components-list__title"><span>></span>图片组件</p>
 	                <div class="components-drag__wrapper">
-	                    <div class="components-drag draggable">
+	                    <div class="components-drag slider-images draggable">
 	                        <div class="components-drag__base">
 	                            <span>轮播图组件</span>
 	                        </div>
@@ -263,10 +263,32 @@
 	    </div>
 	    <div class="container">
 	        <div class="container-content">
+	        	<div class="preview-bar">
+	        		<p>
+	        			<a href="javascript:;">保存</a>
+	        			<a href="javascript:;">预览</a>
+	        		</p>
+	        	</div>
 	            <div class="common-box droppable"></div>
 	        </div>
 	    </div>
-	    <div class="edit-dialog"></div>
+	    <div class="edit-dialog">
+	    	<a class="close-btn" title="关闭" href="javascript:;">X</a>
+	    	<div class="dialog-content">
+	    		<div class="common-dialog-box">
+		            <div class="upload-wrapper">
+		            </div>
+		            <div class="imggroup clearfix">
+		                <span class="addbtn">
+		                    <input class="uploadImg" type="file" accept="image/gif,image/png,,image/jpg,,image/jpeg">
+		                </span>
+		            </div>
+		        </div>
+	    	</div>
+	    	<div class="save-btn">
+	    		<span>保存</span>
+	    	</div>
+	    </div>
     	<div class="edit-dialog-mask"></div>
     </div>
     <div class="footer">
