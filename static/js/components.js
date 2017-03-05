@@ -432,11 +432,8 @@ var components = function() {
                         ui.helper.find('.components-drag__show').show();
                         ui.helper.find('.components-drag__base').hide();
                         if(ui.helper.find('.layout-tree').length>0){
-                            ui.helper.css({
-                                width: '220px'
-                            });
                             ui.helper.find('.layout-tree ul').attr('id','commonTreeShow');
-                            components.initTree();
+                            //components.initTree();
                         }
                     }
                 }

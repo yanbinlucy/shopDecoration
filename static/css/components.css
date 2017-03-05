@@ -76,7 +76,6 @@
 .common-box {
     text-align: left;
     min-height: 500px;
-    border: 1px solid #d8d8d8;
 }
 .header,
 .footer {
@@ -134,7 +133,6 @@
     position: relative;
     min-height: 30px;
     margin-bottom: 8px;
-    margin-top: 20px;
 }
 
 .components__hover {
@@ -163,7 +161,6 @@
     width: 100%;
     min-height: 30px;
     margin: 8px 0;
-    border: 1px solid #d8d8d8;
 }
 .layout-2 .layout-2__left {
     width: 220px;
@@ -184,7 +181,6 @@
 .layout-3 .layout-3__center,
 .layout-3 .layout-3__right {
 	min-height: 30px;
-	border: 1px solid #d8d8d8;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
@@ -227,7 +223,7 @@
 
 }
 .layout-pro .layout-pro-classify {
-    width: 261px;
+    width: 100%;
     border: 1px solid #d8d8d8;
     background: #f7f7f7;
     padding: 0 12px;
@@ -243,7 +239,7 @@
     color: #ef794d;
 }
 .layout-pro .layout-pro-all {
-    width: 261px;
+    width: 100%;
     height: 30px;
     line-height: 30px;
     padding-left: 12px;
@@ -260,7 +256,7 @@
     font-size: 12px;
 }
 .layout-tree-type {
-    width: 261px;
+    width: 100%;
     height: 30px;
     line-height: 30px;
     color: #ef794d;
@@ -273,7 +269,7 @@
     box-sizing: border-box;
 }
 .layout-tree {
-    width: 261px;
+    width: 100%;
     height: 532px;
     border: 1px solid #d8d8d8;
     background: #fff;
@@ -715,6 +711,13 @@
 辅助类样式
 -----------------------------------
 **/
+.border {
+    border: 1px solid #d8d8d8;
+}
+.mt20 {
+    margin-top: 20px;
+}
+
 .clearfix:after {
     content: '';
     display: block;
