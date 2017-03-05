@@ -196,6 +196,22 @@ var components = function() {
             $('.save-btn span').on('click', function(e){
                 _this.saveDialog();
             });
+            //从资源库选择
+            $('.resource-lib p span').on('click', function(e){
+                if($('.rl-images-list').css('display')=='none'){
+                    $('.rl-images-list').show();
+                }else {
+                    $('.rl-images-list').hide();
+                }
+            });
+            //选中资源库图片
+            $('.rl-images-list li').on('click', function(e){
+                if($(this).hasClass('selected')){
+                    $(this).removeClass('selected');
+                }else {
+                    $(this).addClass('selected');
+                }
+            });
 
             /*$(window).on('scroll', function(){
                 var docTop = $(document).scrollTop();

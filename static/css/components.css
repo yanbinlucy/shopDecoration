@@ -515,16 +515,16 @@
 **/
 .edit-dialog {
     position: fixed;
-    top: 50%;
+    top: 20%;
     left: 50%;
     width: 600px;
-    height: 300px;
-    margin-top: -150px;
+    min-height: 300px;
     margin-left: -300px;
     background: #fff;
     z-index: 100;
     display: none;
     z-index: 999;
+    border: 1px solid #d8d8d8;
 }
 .edit-dialog .close-btn {
     position: absolute;
@@ -536,7 +536,7 @@
     z-index: 998;
 }
 .edit-dialog .save-btn {
-    margin: 0 auto;
+    margin: 10px auto;
     width: 80%;
     text-align: center;
 }
@@ -626,20 +626,74 @@
     opacity: 0;
     z-index: 2;
 }
-.item_box{
-    margin:10px 0;
-    display:none;
+.resource-lib p {
+    font-size: 12px;
+    color: #f60;
+    padding: 12px 0;
 }
-.item_box span{
-    font-size:14px;
-    color:#666;
+.resource-lib p span {
+    cursor: pointer;
 }
-.item_box input{
-    height:34px;
-    border:1px solid #ccc;
-    border-radius:5px;
-    padding:0 5px;
-    width:280px;
+.resource-lib .rl-images-list {
+    border: 1px solid #d8d8d8;
+    height: 200px;
+    overflow-y: auto; 
+    display: none;
+}
+.rl-images-list li {
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin: 5px 8px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.rl-images-list li.selected {
+    border: 1px solid #f60;
+}
+.rl-images-list li img {
+    width: 80px;
+    height: 80px;
+}
+.slider-settings {
+    font-size: 12px;
+    color: #333;
+    margin: 10px 0;
+    border-top: 1px dashed #d8d8d8;
+}
+.slider-settings p {
+    font-weight: bold;
+}
+.items .item {
+    height: 34px;
+    line-height: 34px;
+}
+.items .item.fl {
+    float: left;
+}
+.items .item label {
+    width: 80px;
+    text-align: right;
+    color: #666;
+    display: inline-block;
+    margin-right: 5px;
+}
+.items .item input,
+.items .item select {
+    width: 180px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    padding-left: 4px;
+}
+.items .item select {
+    width: 200px;
 }
 .edit-dialog-mask {
     position: fixed;
@@ -656,3 +710,18 @@
 -----------------------------------
 **/
 .ui-state-highlight { height: 1.5em; line-height: 1.2em; background: #fffa90;border: 1px dotted black;}
+/**
+-----------------------------------
+辅助类样式
+-----------------------------------
+**/
+.clearfix:after {
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+.clearfix{
+    *zoom: 1;
+}
