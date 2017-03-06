@@ -523,6 +523,72 @@
     width: 300px;
     height: 60px;
 }
+/**店铺公告**/
+.layout-notice {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid #d8d8d8;
+}
+.layout-notice p.ln-title {
+    height: 36px;
+    line-height: 36px;
+    background: #f1f1f1;
+    padding-left: 10px;
+    position: relative;
+    border-bottom: 1px solid #d8d8d8;
+}
+.layout-notice .layout-notice-list li {
+    width: 90%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding-left: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.layout-notice .layout-notice-list li:not(:last-child) {
+    border-bottom: 1px dotted #d8d8d8;
+}
+.layout-notice .layout-notice-list li a {
+    color: #333;
+    text-decoration: none;
+}
+.layout-notice-dialog {
+    width: 70%;
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    height: 300px;
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    margin-top: -150px;
+    z-index: 100;
+    display: none;
+}
+.layout-notice-dialog p i{
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+.layout-notice-content h5{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 0 3px;
+}
+.layout-notice-content .notice-time {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.layout-notice-content p {
+    line-height: 1.2em;
+    padding: 0 12px;
+    text-indent: 2em;
+    margin: 5px 0;
+    color: #666;
+}
 /**
 -----------------------------------
 编辑框类样式

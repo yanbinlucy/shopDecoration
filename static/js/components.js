@@ -97,6 +97,13 @@ var components = function() {
                     $(this).addClass('selected');
                 }
             });
+            //店铺公告
+            $(document).delegate('.layout-notice li', 'click', function(e){
+                $('.layout-notice-dialog').show();
+            });
+            $(document).delegate('.layout-notice-dialog i', 'click', function(e){
+                $('.layout-notice-dialog').hide();
+            });
 
             /*$(window).on('scroll', function(){
                 var docTop = $(document).scrollTop();
