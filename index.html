@@ -301,7 +301,7 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	                    <div class="components-drag draggable">
+	                    <div class="components-drag draggable search-drag">
 	                        <div class="components-drag__base">
 	                            <span>搜索组件</span>
 	                        </div>
@@ -311,6 +311,22 @@
 										<label for="">商品搜索</label>
 										<input type="text">
 										<span>搜索</span>
+									</div>
+	                            </div>
+	                            <div class="components-op">
+	                            	<i class="edit-op">编辑</i>
+	                                <i class="del-op">删除</i>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="components-drag draggable logo-drag">
+	                        <div class="components-drag__base">
+	                            <span>logo组件</span>
+	                        </div>
+	                        <div class="components-drag__show mt20">
+	                            <div class="layout-logo border">
+									<div class="layout-logo-wrapper">
+										<img src="static/images/1.jpg" alt="">	
 									</div>
 	                            </div>
 	                            <div class="components-op">
@@ -340,11 +356,12 @@
 	    		<div class="common-dialog-box">
 		            <div class="upload-wrapper">
 		            </div>
-		            <div class="imggroup clearfix">
+		            <div class="imggroup">
 		                <span class="addbtn">
 		                    <input class="uploadImg" type="file" accept="image/gif,image/png,,image/jpg,,image/jpeg">
 		                </span>
 		            </div>
+		            <div class="clearfix"></div>
 		            <div class="resource-lib clearfix">
 		            	<p><span>从资源库中选择</span></p>
 		            	<div class="rl-images-list">
@@ -400,20 +417,20 @@
 		            		</ul>
 		            	</div>
 		            </div>
-		            <div class="slider-settings clearfix">
+		            <div class="slider-settings base clearfix">
 		            	<p>基础设置</p>
 		            	<div class="items">
 		            		<div class="item fl">
 			            		<label for="">宽度设置</label>
-			            		<input type="text" name="" placeholder="请设置轮播图宽度">
+			            		<input type="text" name="" placeholder="请设置图片宽度">
 			            	</div>
 			            	<div class="item fl">
 			            		<label for="">高度设置</label>
-			            		<input type="text" name="" placeholder="请设置轮播图高度">
+			            		<input type="text" name="" placeholder="请设置图片高度">
 			            	</div>
 		            	</div>
 		            </div>
-		            <div class="slider-settings">
+		            <div class="slider-settings advanced">
 		            	<p>高级设置</p>
 		            	<div class="items">
 		            		<div class="item">
@@ -437,7 +454,8 @@
 		<span>此处为footer部分，暂无内容（此处不可拖放组件）</span>
 	</div>
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="static/js/jquery-ui.min.js"></script>   
+    <script type="text/javascript" src="static/js/jquery-ui.min.js"></script> 
+    <script type="text/javascript" src="static/js/utils.js"></script>  
     <script type="text/javascript" src="static/js/components.js"></script>
 </body>
 

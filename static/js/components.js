@@ -1,140 +1,10 @@
-var utils = function(){
-    return {
-        /**
-         * 初始化拖拽排序
-         * params为参数对象
-         */
-        initDragSort: function(params){
-            var draggable = params.draggable,
-                connectToSortable = params.connectToSortable,
-                helper = params.helper || 'clone',
-                dstart = params.callback && params.callback.dstart,
-                ddrag = params.callback && params.callback.ddrag,
-                dstop = params.callback && params.callback.dstop,
-                sortable = params.sortable,
-                connectWith = params.connectWith,
-                opacity = params.opacity || .35,
-                placeholder = params.placeholder || 'ui-state-highlight',
-                sstart = params.callback && params.callback.sstart,
-                schange = params.callback && params.callback.schange,
-                sstop = params.callback && params.callback.sstop;
-
-            $(draggable).draggable({
-                connectToSortable: connectToSortable,
-                helper: helper,
-                start: dstart,
-                drag: ddrag,
-                stop: dstop
-            });
-            $(sortable).sortable({
-                connectWith: connectWith,
-                opacity: opacity,
-                placeholder: placeholder,
-                start: sstart,
-                change: schange,
-                stop: sstop
-            });
-        },
-
-        uploadImg: function(params) {
-            var fr = new FileReader();
-            fr.onloadend = function(e) {
-                params.target.append('<span><img src="' + e.target.result + '" /><i>x</i></span>');
-                params.callback && params.callback();
-            };
-            fr.onerror = function() {
-                params.target.append('<span><img src="' + params.defaultSrc + '" /><i>x</i></span>');
-            };
-            fr.readAsDataURL(params.file);
-        },
-        /**
-         * 初始化zTree
-         * params为参数对象
-         */
-        initzTree: function(params){
-            var _this = this,
-                tree = params.tree || 'tree',
-                showLine = params.setting && params.setting.showLine,
-                showIcon = params.setting && params.setting.showIcon,
-                selectedMulti = params.setting && params.setting.selectedMulti || false,
-                showTitle = params.setting && params.setting.showTitle,
-                width = params.setting && params.setting.width || 250,
-                height = params.setting && params.setting.height || 300,
-                settingData = params.setting && params.setting.data,
-                simpleData = settingData && settingData.simpleData,
-                enable = simpleData && simpleData.enable,
-                idKey = simpleData && simpleData.idKey || 'id',
-                pIdKey = simpleData && simpleData.pIdKey || 'pId',
-                rootPId = simpleData && simpleData.rootPId || '',
-                settingAsync = params.setting && params.setting.async,
-                asyncEnable = settingAsync && settingAsync.enable || false,
-                asyncUrl = settingAsync && settingAsync.url || '',
-                asyncAutoParam = settingAsync && settingAsync.autoParam || [],
-                asyncContentType = settingAsync && settingAsync.contentType || 'application/x-www-form-urlencoded',
-                asyncType = settingAsync && settingAsync.type || 'post',
-                asyncOtherParam = settingAsync && settingAsync.otherParam || [],
-                asyncDataFilter = settingAsync && settingAsync.dataFilter || null,
-                asyncDataType = settingAsync && settingAsync.dataType || 'text';
-
-            showLine = typeof showLine != 'undefined' ? showLine : true;
-            showIcon = typeof showIcon != 'undefined' ? showIcon : true;
-            showTitle = typeof showTitle != 'undefined' ? showTitle : true;
-            enable = typeof enable != 'undefined' ? enable : true;
-            //初始化树的高宽
-            $('#'+tree).parent('.tree-wrapper').css({
-                width: width,
-                height: height
-            });
-
-            var setting = {
-                view: {
-                    dblClickExpand: false,
-                    showLine: showLine,//显示连接线
-                    showIcon: showIcon,//显示图标
-                    showTitle: showTitle,//显示鼠标悬浮提示
-                    selectedMulti:  selectedMulti//是否允许多选
-                },
-                async: {
-                    enable: asyncEnable,//设置 zTree 是否开启异步加载模式
-                    url: asyncUrl,//Ajax 获取数据的 URL 地址
-                    autoParam: asyncAutoParam,//异步加载时需要自动提交父节点属性的参数
-                    contentType: asyncContentType,//Ajax 提交参数的数据类型
-                    type: asyncType,//Ajax 的 http 请求模式
-                    otherParam: asyncOtherParam,//Ajax 请求提交的静态参数键值对
-                    dataFilter: asyncDataFilter, //用于对 Ajax 返回数据进行预处理的函数
-                    dataType: asyncDataType //Ajax 获取的数据类型
-                },
-                data: {
-                    simpleData: {
-                        enable: enable,//使用简单数据模式
-                        idKey: idKey,//节点数据中保存唯一标识的属性名称,setting.data.simpleData.enable = true 时生效
-                        pIdKey: pIdKey,//节点数据中保存其父节点唯一标识的属性名称。[setting.data.simpleData.enable = true 时生效]
-                        rootPId: rootPId
-                    }
-                },
-                callback: {
-                    beforeClick: params.callback && params.callback.beforeClick,//用于捕获单击节点之前的事件回调函数，并且根据返回值确定是否允许单击操作
-                    onClick: params.callback && params.callback.click,//用于捕获节点被点击的事件回调函数
-                    beforeDblClick: params.callback && params.callback.beforeDblClick,//用于捕获 zTree 上鼠标双击之前的事件回调函数，并且根据返回值确定触发 onDblClick 事件回调函数
-                    onDblClick: params.callback && params.callback.onDblClick,//用于捕获 zTree 上鼠标双击之后的事件回调函数
-                    beforeCollapse: params.callback && params.callback.beforeCollapse,//用于捕获父节点折叠之前的事件回调函数，并且根据返回值确定是否允许折叠操作
-                    onCollapse: params.callback && params.callback.onCollapse,//用于捕获节点被折叠的事件回调函数
-                    beforeExpand: params.callback && params.callback.beforeExpand,//用于捕获父节点展开之前的事件回调函数，并且根据返回值确定是否允许展开操作
-                    onExpand: params.callback && params.callback.onExpand,//用于捕获节点被展开的事件回调函数
-                    beforeAsync: params.callback && params.callback.beforeAsync,//用于捕获异步加载之前的事件回调函数，zTree 根据返回值确定是否允许进行异步加载
-                    beforeClick: params.callback && params.callback.beforeClick,//用于捕获单击节点之前的事件回调函数，并且根据返回值确定是否允许单击操作
-                    onRightClick: params.callback && params.callback.onRightClick//用于捕获 zTree 上鼠标右键点击之后的事件回调函数
-                }
-            };
-
-            var t = $('#'+tree);
-            t = $.fn.zTree.init(t, setting, params.zNodes);//初始化zTree
-            
-            return $.fn.zTree.getZTreeObj(tree);//通过treeId（即最外层的ul的id） 获取 zTree 对象的方法
-        }
-    };
-}();
-
+/**
+ * @author zhang xuanbin
+ * @time   2017/03/06
+ * @desc   此为店铺装修组件开发的交互demo，可以以此为参考，
+ *         但在实际开发过程中以各自的业务需求去完成对应的组件，
+ *         除了初始化组件外，其他操作均可按自己的开发习惯进行（建议统一）。
+ **/
 var components = function() {
     $(document).ready(function() {
         components.init();
@@ -159,6 +29,11 @@ var components = function() {
                 curEdit = this;
                 _this.editSliderComponents(this);
             });
+            //logo编辑
+            $(document).delegate('.logo-drag .edit-op', 'click', function(e){
+                curEdit = this;
+                _this.editLogoComponents(this);
+            });
             //tab页切换
             $(document).delegate('.layout-tab .layout-tab-nav li', 'click', function(e){
                 e.stopPropagation();
@@ -179,6 +54,10 @@ var components = function() {
                     target: _parent.find('.upload-wrapper'),
                     defaultSrc: '',
                     callback: function () {
+                        //logo图片编辑框内删除
+                        if(curEdit && $(curEdit).closest('.logo-drag').length){
+                            $('.imggroup').hide();
+                        }
                         //此处解决input file change只执行一次
                         $(_this).replaceWith('<input class="uploadImg" type="file" accept="image/gif,image/png,,image/jpg,,image/jpeg">');
                     }
@@ -186,6 +65,12 @@ var components = function() {
             });
             //删除图片上传
             $(document).delegate('.upload-wrapper i', 'click', function(e){
+                
+                console.log(curEdit)
+                //logo图片编辑框内删除
+                if(curEdit && $(curEdit).closest('.logo-drag').length){
+                    $('.imggroup').show();
+                }
                 $(this).parent().remove();
             });
             //隐藏弹出框
@@ -242,6 +127,29 @@ var components = function() {
             }
 
             _this.showMask();
+            //
+            $('.imggroup').show();
+            //隐藏高级设置
+            $('.advanced').show();
+        },
+
+        //logo编辑框
+        editLogoComponents: function(obj){
+            var _this = this,
+                _parent = $(obj).closest('.components-drag__show');
+
+            if(_parent.find('.layout-logo').length){
+                //上传框隐藏（只能上传一个）
+                $('.imggroup').hide();
+                var _src = _parent.find('.layout-logo img').attr('src');
+                $('.edit-dialog .upload-wrapper').append('<span><img src="' + _src + '" /><i>x</i></span>');
+            }else{
+                $('.upload-wrapper').empty();
+            }
+
+            _this.showMask();
+            //隐藏高级设置
+            $('.advanced').hide();
         },
 
         //编辑框保存
@@ -289,6 +197,7 @@ var components = function() {
 
         //清空编辑框，还原设置
         clearDialog: function(){
+            curEdit = null;
             $('.upload-wrapper').empty();
         },
 
@@ -479,7 +388,7 @@ var components = function() {
                         ui.helper.find('.components-drag__show').show();
                         ui.helper.find('.components-drag__base').hide();
                         if(ui.helper.find('.layout-slider').length>0){//轮播图插件
-                            components.initSlider(ui.helper);
+                            utils.initSlider(ui.helper);
                         }
 
 
