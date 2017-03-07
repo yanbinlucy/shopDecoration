@@ -145,7 +145,7 @@ var components = function() {
             var _this = this,
                 _parent = $(obj).closest('.components-drag__show');
 
-            if(_parent.find('.layout-logo').length){
+            if(_parent.find('.layout-logo').length && _parent.find('.layout-logo img').length){
                 //上传框隐藏（只能上传一个）
                 $('.imggroup').hide();
                 var _src = _parent.find('.layout-logo img').attr('src');
