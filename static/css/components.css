@@ -485,11 +485,16 @@
     height: 24px;
     line-height: 24px;
     /*width: 180px;*/
-    width: 15%;
+    width: 20%;
     border: 1px solid #d8d8d8;
     border-radius: 4px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+.layout-2__left .layout-search .layout-search__right input,
+.layout-3__left .layout-search .layout-search__right input,
+.layout-3__right .layout-search .layout-search__right input {
+    width: 40%;
 }
 .layout-search .layout-search__right span {
     display: inline-block;
