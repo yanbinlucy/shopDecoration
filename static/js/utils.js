@@ -10,7 +10,9 @@ var utils = function(){
 	return {
         init: function(){
             utils.initEvent();
-            utils.initSlider();
+            setTimeout(function(){
+                utils.initSlider();
+            },0);
         },
         initEvent: function(){
             //tab页切换
