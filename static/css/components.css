@@ -145,7 +145,7 @@
     right: 12px;
     display: none;
     font-size: 12px;
-    color: #333;
+    color: #f60;
 }
 .components-op i {
 	cursor: pointer;
@@ -339,6 +339,7 @@
 }
 .layout-pro-header p {
     font-size: 16px;
+    padding-left: 12px;
 }
 .layout-pro-header .pro-sort-bar {
     height: 30px;
