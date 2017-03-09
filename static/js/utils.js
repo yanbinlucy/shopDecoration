@@ -24,9 +24,6 @@ var utils = function(){
                 $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
             });
         },
-        initSingleComponents: function(){
-            $('.single')
-        },
 		//banner轮播
         initSlider: function(){
             var _this = this;

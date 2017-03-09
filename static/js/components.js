@@ -115,7 +115,7 @@ var components = function() {
                 $(this).closest('li').remove();
             });
             //打开添加tab
-            $('.setting-add p').on('click', function(e){
+            $('.setting-add p span').on('click', function(e){
                 $('.setting-add .setting-item').toggle();
             });
             //添加tab
@@ -141,6 +141,8 @@ var components = function() {
         //关闭tab设置框
         hideTabDialog: function(){
             tabSetting = null;
+            $('.setting-item input').val('');
+            $('.setting-add .setting-item').hide();
             $('body').css('overflow', 'auto');
             $('.tab-setting').hide();
             $('.edit-dialog-mask').hide();
@@ -150,9 +152,11 @@ var components = function() {
             var _parent = $(tabSetting).closest('.tab'),
                 settingStr = '';
             _parent.find('.layout-tab-nav li').each(function(){
-                var _text = $(this).find('a').text();
-                settingStr += '<li><span>'+_text+'</span><i>X</i>';
+                var _text = $(this).find('a').text(),
+                    _index = $(this).attr('data-index');
+                settingStr += '<li data-index="'+_index+'"><span>'+_text+'</span><i>X</i>';
             });
+            $('.setting-box-list ul').empty();
             $('.setting-box-list ul').append(settingStr);
 
             $('body').css('overflow', 'hidden');
@@ -161,7 +165,9 @@ var components = function() {
         },
         //添加新tab
         addTab: function(_text){
-            var str = '<li><span>'+_text+'</span><i>X</i>';
+            var len = $('.setting-box-list li').length;
+                lastIndex = $('.setting-box-list li').eq(len-1).attr('data-index') + 1;
+            var str = '<li data-index="'+lastIndex+'"><span>'+_text+'</span><i>X</i>';
             $('.setting-box-list ul').append(str);
             $('.setting-item input').val('');
         },
@@ -170,24 +176,30 @@ var components = function() {
             var tabStr = '',
                 tabContentStr = '',
                 _parent = $(tabSetting).closest('.tab'),
-                len = $('.setting-box-list li').length;
+                len = $('.setting-box-list li').length,
+                indexArr = [];
                     
             $('.setting-box-list li').each(function(index,item){
-                var _text = $(this).find('span').text();
+                var _text = $(this).find('span').text(),
+                    _index = $(this).attr('data-index');
+
+                indexArr.push(_index);
+
                 if(index===0){
-                    tabStr += '<li class="selected"><a href="javascript:;">'+_text+'</a></li>';
+                    tabStr += '<li data-index="0" class="selected"><a href="javascript:;">'+_text+'</a></li>';
                 }else{
-                    tabStr += '<li><a href="javascript:;">'+_text+'</a></li>';
+                    tabStr += '<li data-index="'+index+'"><a href="javascript:;">'+_text+'</a></li>';
                 }
             });
             _parent.find('.layout-tab-nav').empty();
             _parent.find('.layout-tab-nav').append(tabStr);
 
             for(var i=0; i<len; i++){
+                var _content = _parent.find('.layout-tab-content').eq(indexArr[i]).html() || '';
                 if(i==0){
-                    tabContentStr += '<div class="layout-tab-content show"></div>';
+                    tabContentStr += '<div class="layout-tab-content show">'+_content+'</div>';
                 }else{
-                    tabContentStr += '<div class="layout-tab-content"></div>';
+                    tabContentStr += '<div class="layout-tab-content">'+_content+'</div>';
                 }
             }
             _parent.find('.layout-tab-content__wrapper').empty();
