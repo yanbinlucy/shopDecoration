@@ -10,7 +10,8 @@ var components = function() {
         components.init();
     });
 
-    var curEdit = null;
+    var curEdit = null,
+        tabSetting = null;
 
     return {
         init: function() {
@@ -69,11 +70,11 @@ var components = function() {
                 $(this).parent().remove();
             });
             //隐藏弹出框
-            $('.close-btn').on('click', function(e){
+            $('.edit-dialog .close-btn').on('click', function(e){
                 _this.hideMask();
             });
             //保存弹出框
-            $('.save-btn span').on('click', function(e){
+            $('.edit-dialog .save-btn span').on('click', function(e){
                 _this.saveDialog();
             });
             //从资源库选择
@@ -100,18 +101,100 @@ var components = function() {
                 $('.layout-notice-dialog').hide();
             });
 
-            /*$(window).on('scroll', function(){
-                var docTop = $(document).scrollTop();
-                console.log(docTop)
-                if(docTop>100){
-                    $('.components').css({
-                        position: 'fixed',
-                        top: 0
-                    });
+            //设置tab
+            $(document).delegate('.tab .set-op', 'click', function(e){
+                tabSetting = this;
+                _this.showSettingTab();
+            });
+            //隐藏tab功能弹出框
+            $('.tab-setting .setting-close').on('click', function(e){
+                _this.hideTabDialog();
+            });
+            //删除tab编辑框中的选项卡
+            $(document).delegate('.setting-box-list li i', 'click', function(e){
+                $(this).closest('li').remove();
+            });
+            //打开添加tab
+            $('.setting-add p').on('click', function(e){
+                $('.setting-add .setting-item').toggle();
+            });
+            //添加tab
+            $('.setting-add .setting-item a').on('click', function(e){
+                var _text = utils.trim($('.setting-item input').val());
+                if(!_text){
+                    utils.showTip('选项卡不能为空！');
+                    return;
                 }
-            });*/
-
+                _this.addTab(_text);
+            });
+            //保存tab
+            $('.setting-save').on('click', function(e){
+                var len = $('.setting-box-list li').length;
+                if(!len) {
+                    utils.showTip('至少添加一个选项卡！');
+                    return;
+                }
+                _this.saveTab();
+                _this.hideTabDialog();
+            });
         },
+        //关闭tab设置框
+        hideTabDialog: function(){
+            tabSetting = null;
+            $('body').css('overflow', 'auto');
+            $('.tab-setting').hide();
+            $('.edit-dialog-mask').hide();
+        },
+        //显示编辑tab框
+        showSettingTab: function(){
+            var _parent = $(tabSetting).closest('.tab'),
+                settingStr = '';
+            _parent.find('.layout-tab-nav li').each(function(){
+                var _text = $(this).find('a').text();
+                settingStr += '<li><span>'+_text+'</span><i>X</i>';
+            });
+            $('.setting-box-list ul').append(settingStr);
+
+            $('body').css('overflow', 'hidden');
+            $('.tab-setting').show();
+            $('.edit-dialog-mask').height($(window).height()).show();
+        },
+        //添加新tab
+        addTab: function(_text){
+            var str = '<li><span>'+_text+'</span><i>X</i>';
+            $('.setting-box-list ul').append(str);
+            $('.setting-item input').val('');
+        },
+        //保存新tab
+        saveTab: function(){
+            var tabStr = '',
+                tabContentStr = '',
+                _parent = $(tabSetting).closest('.tab'),
+                len = $('.setting-box-list li').length;
+                    
+            $('.setting-box-list li').each(function(index,item){
+                var _text = $(this).find('span').text();
+                if(index===0){
+                    tabStr += '<li class="selected"><a href="javascript:;">'+_text+'</a></li>';
+                }else{
+                    tabStr += '<li><a href="javascript:;">'+_text+'</a></li>';
+                }
+            });
+            _parent.find('.layout-tab-nav').empty();
+            _parent.find('.layout-tab-nav').append(tabStr);
+
+            for(var i=0; i<len; i++){
+                if(i==0){
+                    tabContentStr += '<div class="layout-tab-content show"></div>';
+                }else{
+                    tabContentStr += '<div class="layout-tab-content"></div>';
+                }
+            }
+            _parent.find('.layout-tab-content__wrapper').empty();
+            _parent.find('.layout-tab-content__wrapper').append(tabContentStr);
+        },
+
+
         //编辑图片方法
         editSliderComponents: function(obj){
             var _this = this,
@@ -288,7 +371,6 @@ var components = function() {
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
-                        console.log(ui.helper)
                         ui.helper.css({
                             width: '100%',
                             opacity: 1,
@@ -310,6 +392,7 @@ var components = function() {
                 connectToSortable: '.components-drag .droppable',
                 sortable: '.components-drag .droppable',
                 connectWith: '.components-drag .droppable',
+                unique: true,
                 callback: {
                     dstart: function(event, ui) {
                         ui.helper.css('cursor','move');
@@ -334,7 +417,7 @@ var components = function() {
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
-                        console.log(ui.helper.html())
+                        
                         ui.helper.css({
                             width: '100%',
                             opacity: 1,

@@ -614,7 +614,8 @@
 编辑框类样式
 -----------------------------------
 **/
-.edit-dialog {
+.edit-dialog,
+.tab-setting {
     position: fixed;
     top: 20%;
     left: 50%;
@@ -627,7 +628,8 @@
     z-index: 999;
     border: 1px solid #d8d8d8;
 }
-.edit-dialog .close-btn {
+.edit-dialog .close-btn,
+.tab-setting .setting-close {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -636,12 +638,14 @@
     color: #333;
     z-index: 998;
 }
-.edit-dialog .save-btn {
+.edit-dialog .save-btn,
+.tab-setting .setting-save {
     margin: 10px auto;
     width: 80%;
     text-align: center;
 }
-.edit-dialog .save-btn span {
+.edit-dialog .save-btn span,
+.tab-setting .setting-save span{
     display: inline-block;
     width: 80px;
     height: 34px;
@@ -653,7 +657,8 @@
     color: #fff;
     cursor: pointer;
 }
-.edit-dialog .dialog-content {
+.edit-dialog .dialog-content,
+.tab-setting .setting-box {
     padding: 10px;
 }
 .upload-wrapper{
@@ -727,12 +732,14 @@
     opacity: 0;
     z-index: 2;
 }
-.resource-lib p {
+.resource-lib p,
+.setting-add p {
     font-size: 12px;
     color: #f60;
     padding: 12px 0;
 }
-.resource-lib p span {
+.resource-lib p span,
+.setting-add p span {
     cursor: pointer;
 }
 .resource-lib .rl-images-list {
@@ -778,7 +785,8 @@
 .items .item.fl {
     float: left;
 }
-.items .item label {
+.items .item label,
+.setting-add .setting-item label  {
     width: 80px;
     text-align: right;
     color: #666;
@@ -786,7 +794,8 @@
     margin-right: 5px;
 }
 .items .item input,
-.items .item select {
+.items .item select,
+.setting-add .setting-item input  {
     width: 180px;
     height: 34px;
     line-height: 34px;
@@ -806,6 +815,90 @@
     opacity: .7;
     display: none;
 }
+/**tab页设置**/
+.tab-setting {
+    min-height: 180px;
+}
+.tab-setting .setting-box-list {
+    
+}
+.setting-box-list li {
+    font-size: 12px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+.setting-box-list li span {
+    display: inline-block;
+    padding: 0 15px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+}
+.setting-box-list li i {
+    position: absolute;
+    right: 2px;
+    top: 0px;
+    cursor: pointer;
+}
+.setting-add {
+    margin: 5px 0;
+    border-top: 1px dashed #d8d8d8;
+}
+.setting-add p {
+    padding-left: 12px;
+}
+.setting-add .setting-item {
+    margin-bottom: 6px;
+    font-size: 12px;
+    padding-left: 12px;
+    display: none;
+}
+.setting-add .setting-item input {
+    width: 250px;
+    height: 30px;
+    line-height: 30px;
+}
+.setting-add .setting-item a {
+    display: inline-block;
+    color: #333;
+    border: 1px solid #d8d8d8;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #666;
+}
+
+/**
+-----------------------------------
+信息提示样式
+-----------------------------------
+**/
+.form-info__tips {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    z-index: 100002;
+    text-align: center;
+    display: none;
+}
+
+.form-info__tips span {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background: #767676;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 16px;
+}
+
 /**
 -----------------------------------
 覆盖类样式

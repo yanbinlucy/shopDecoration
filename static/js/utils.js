@@ -22,6 +22,9 @@ var utils = function(){
                 $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
             });
         },
+        initSingleComponents: function(){
+            $('.single')
+        },
 		//banner轮播
         initSlider: function(){
             var _this = this;
@@ -97,7 +100,8 @@ var utils = function(){
                 placeholder = params.placeholder || 'ui-state-highlight',
                 sstart = params.callback && params.callback.sstart,
                 schange = params.callback && params.callback.schange,
-                sstop = params.callback && params.callback.sstop;
+                sstop = params.callback && params.callback.sstop,
+                unique = params.unique || false;
 
             $(draggable).draggable({
                 connectToSortable: connectToSortable,
@@ -214,6 +218,45 @@ var utils = function(){
             t = $.fn.zTree.init(t, setting, params.zNodes);//初始化zTree
             
             return $.fn.zTree.getZTreeObj(tree);//通过treeId（即最外层的ul的id） 获取 zTree 对象的方法
+        },
+        /**
+         * 去除空格
+         * str 匹配字符串；isGlobal 是否去除所有空格
+         */
+        trim: function(str, isGlobal) {
+            isGlobal = isGlobal || 'l';
+            if (!str) {
+                return;
+            }
+            var result = str.replace(/(^\s+)|(\s+$)/g, '');
+            if (isGlobal.toLowerCase() == 'g') {
+                result = result.replace(/\s/g, '');
+            }
+            return result;
+        },
+        /**
+         * 消息提示
+         **/
+        showTip: function(content,showPosition,target){
+            var target = target || '.form-info__tips',
+                showPosition = showPosition || 'body'
+                box = null,
+                timer = null;
+
+            if($(target).length==0){
+                $(showPosition).append('<div class="form-info__tips"><span></span></div>');
+            }
+            box = $(target);
+
+            if(box.css('display') == 'none') {
+                box.find('span').text(content);
+                box.show();
+                timer = setTimeout(function(){
+                    box.hide();
+                    box.find('span').text('');
+                    clearTimeout(timer);
+                }, 1500);
+            }
         }
     };
 }();
