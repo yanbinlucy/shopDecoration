@@ -5,9 +5,23 @@
  **/
 var utils = function(){
 	$(document).ready(function(){
-		utils.initSlider();
+		utils.init();
 	});
 	return {
+        init: function(){
+            utils.initEvent();
+            utils.initSlider();
+        },
+        initEvent: function(){
+            //tab页切换
+            $(document).delegate('.layout-tab .layout-tab-nav li', 'click', function(e){
+                e.stopPropagation();
+                if($(this).hasClass('selected')) return;
+                var _index = $(this).index();
+                $(this).addClass('selected').siblings().removeClass('selected');
+                $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
+            });
+        },
 		//banner轮播
         initSlider: function(){
             var _this = this;

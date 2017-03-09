@@ -34,12 +34,7 @@ var components = function() {
                 curEdit = this;
                 _this.editLogoComponents(this);
             });
-            //tab页切换
-            $(document).delegate('.layout-tab .layout-tab-nav li', 'click', function(e){
-                e.stopPropagation();
-                var _index = $(this).index();
-                $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
-            });
+            
             //图片上传
             $(document).delegate('.uploadImg', 'change', function(e) {
                 e.preventDefault();
