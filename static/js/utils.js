@@ -107,7 +107,14 @@ var utils = function(){
                 helper: helper,
                 start: dstart,
                 drag: ddrag,
-                stop: dstop
+                stop: function(event,ui){
+                    dstop(event, ui);
+                    if(unique && $(draggable).length>2){
+                        utils.showTip('此组件只能拖放一次！');
+                        ui.helper.remove();
+                    }
+                    
+                }
             });
             $(sortable).sortable({
                 connectWith: connectWith,
