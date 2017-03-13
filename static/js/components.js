@@ -404,7 +404,7 @@ var components = function() {
                 connectToSortable: '.components-drag .droppable',
                 sortable: '.components-drag .droppable',
                 connectWith: '.components-drag .droppable',
-                unique: true,
+                //unique: true,
                 callback: {
                     dstart: function(event, ui) {
                         ui.helper.css('cursor','move');

@@ -579,8 +579,7 @@
     width: 70%;
     background: #fff;
     border: 1px solid #d8d8d8;
-    height: 300px;
-    overflow: hidden;
+    min-height: 300px;
     position: fixed;
     top: 50%;
     margin-top: -150px;
@@ -591,6 +590,9 @@
     position: absolute;
     right: 12px;
     cursor: pointer;
+}
+.layout-notice-content {
+    min-height: 260px;
 }
 .layout-notice-content h5{
     text-align: center;
@@ -610,6 +612,19 @@
     margin: 5px 0;
     color: #666;
 }
+.layout-notice-close {
+    text-align: center;
+    margin: 20px 0;
+}
+.layout-notice-close input {
+    width: 80px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    color: #333;
+    background: #fff;
+}
 /**
 -----------------------------------
 编辑框类样式
@@ -618,7 +633,7 @@
 .edit-dialog,
 .tab-setting {
     position: fixed;
-    top: 20%;
+    top: 8%;
     left: 50%;
     width: 600px;
     min-height: 300px;
