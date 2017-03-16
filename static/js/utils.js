@@ -7,6 +7,7 @@ var utils = function(){
 	$(document).ready(function(){
 		utils.init();
 	});
+    var timer = null;
 	return {
         init: function(){
             utils.initEvent();
@@ -25,8 +26,9 @@ var utils = function(){
             });
         },
 		//banner轮播
-        initSlider: function(){
-            var _this = this;
+        initSlider: function(params){
+            var _this = this,
+                obj = params && params.target;//外层容器
             $('.common-box .layout-slider').each(function(){
             	var obj = this;
             	$(obj).find('.slider ul li').each(function(index,item){
@@ -52,35 +54,110 @@ var utils = function(){
 	            $(obj).find('.slider').append(olStr);
 
 	            //初始化滚动
-	            _this.initScroll(obj);
+	            _this.initScroll(params);
             })
             
         },
 
         //轮播动画
-        initScroll: function(obj){
-            var len = $(obj).find('.slider ul li').length,
+        initScroll: function(params){
+            var _this = this,
+                obj = params && params.target,
+                effect = params && params.effect,
+                time = params && params.time,
+                len = $(obj).find('.slider ul li').length,
                 _ulLi = $(obj).find('.slider ul li'),
-                _olLi = $(obj).find('.slider ol li');
-            obj.timer = setInterval(function(){
-                var _index = $(obj).find('.slider ul li.current').index();
-                if(_index==len-1){
-                    //$('#slider ul').css('left',0);
-                    _ulLi.eq(0).addClass('current').siblings().removeClass('current');
-                    _olLi.eq(0).addClass('current').siblings().removeClass('current');
-                }else{
-                    //$('#slider ul').css('left','-'+(_index+1)*100+'%');
-                    _ulLi.eq(_index+1).addClass('current').siblings().removeClass('current');
-                    _olLi.eq(_index+1).addClass('current').siblings().removeClass('current');
-                }
-            },4000);
+                _olLi = $(obj).find('.slider ol li'),
+                liWidth = $(obj).find('.slider').width(),
+                liLen = $(obj).find('.slider ul li').length;
 
+            _this.manageInterval({
+                target: obj,
+                effect: effect,
+                time: time,
+                len: len,
+                _ulLi: _ulLi,
+                _olLi: _olLi,
+                liWidth: liWidth,
+                liLen: liLen
+            });
             //绑定
             _olLi.on('click', function(e){
                 var _index = $(this).index();
-                $(this).addClass('current').siblings().removeClass('current');
-                _ulLi.eq(_index).addClass('current').siblings().removeClass('current');
+                    $(this).addClass('current').siblings().removeClass('current');
+                if(effect=='fadeIn'){
+                    _ulLi.eq(_index).addClass('current').siblings().removeClass('current');
+                }else if(effect=='slideX'){
+                    
+                }else if(effect=='slideY'){
+                       
+                }
             });
+        },
+
+        manageInterval: function(params){
+            var _this = this,
+                obj = params && params.target,
+                effect = params && params.effect,
+                time = params && params.time,
+                len = params && params.len,
+                _ulLi = params && params._ulLi,
+                _olLi = params && params._olLi,
+                liWidth = params && params.liWidth,
+                liLen = params && params.liLen;
+
+            clearInterval(timer);
+
+            $(obj).find('.slider ul li').show();
+            if(effect=='fadeIn'){
+                $(obj).find('.slider ul').addClass('fade');
+                timer = setInterval(function(){
+                    var _index = $(obj).find('.slider ul li.current').index();
+                    if(_index==len-1){
+                        _ulLi.eq(0).addClass('current').siblings().removeClass('current');
+                        _olLi.eq(0).addClass('current').siblings().removeClass('current');
+                    }else{
+                        _ulLi.eq(_index+1).addClass('current').siblings().removeClass('current');
+                        _olLi.eq(_index+1).addClass('current').siblings().removeClass('current');
+                    }
+                },time);
+            }else if(effect=='slideX'){
+                $(obj).find('.slider ul').addClass('sliderX');
+
+                $(obj).find('.slider ul').width(liWidth*liLen);
+                $(obj).find('.slider ul li').width(liWidth);
+
+                timer = setInterval(function(){
+                    $(obj).find('.slider ul').animate({ 
+                        left: -liWidth
+                    },1000,'linear',function(){
+                        $(obj).find('.slider ul').css('left','0');
+                        $(obj).find('.slider ul').append($(obj).find('.slider ul li').eq(0));
+                        var curLi = $(obj).find('.slider ul li').eq(0)
+                            _index = curLi.attr('data-index');
+
+                        curLi.addClass('current').siblings().removeClass('current');
+                        _olLi.eq(_index).addClass('current').siblings().removeClass('current');
+                    }); 
+                },time);
+            }else if(effect=='slideY'){
+                $(obj).find('.slider ul').addClass('slideY');
+
+                var liHeight = $(obj).find('.slider').height();
+                timer = setInterval(function(){
+                    $(obj).find('.slider ul').animate({ 
+                        bottom: -liHeight
+                    },1000,'linear',function(){
+                        $(obj).find('.slider ul').css('bottom','0');
+                        $(obj).find('.slider ul').append($(obj).find('.slider ul li').eq(0));
+                        var curLi = $(obj).find('.slider ul li').eq(0)
+                            _index = curLi.attr('data-index');
+
+                        curLi.addClass('current').siblings().removeClass('current');
+                        _olLi.eq(_index).addClass('current').siblings().removeClass('current');
+                    }); 
+                },time);
+            }
         },
         /**
          * 初始化拖拽排序
@@ -95,6 +172,7 @@ var utils = function(){
                 dstop = params.callback && params.callback.dstop,
                 sortable = params.sortable,
                 connectWith = params.connectWith,
+                accept = params.accept,
                 opacity = params.opacity || .35,
                 placeholder = params.placeholder || 'ui-state-highlight',
                 sstart = params.callback && params.callback.sstart,
@@ -113,7 +191,6 @@ var utils = function(){
                         utils.showTip('此组件只能拖放一次！');
                         ui.helper.remove();
                     }
-                    
                 }
             });
             $(sortable).sortable({

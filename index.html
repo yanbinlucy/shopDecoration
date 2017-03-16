@@ -34,6 +34,19 @@
 	                    </div>
 	                    <div class="components-drag draggable">
 	                        <div class="components-drag__base">
+	                            <span>一列宽度（1200）</span>
+	                        </div>
+	                        <div class="components-drag__show mt20">
+	                            <div class="layout-1 droppable border">
+	                            </div>
+	                            <div class="components-op">
+	                            	<i class="edit-op">编辑</i>
+	                                <i class="del-op">删除</i>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="components-drag draggable">
+	                        <div class="components-drag__base">
 	                            <span>两列宽度（220*965）</span>
 	                        </div>
 	                        <div class="components-drag__show mt20">
@@ -132,7 +145,7 @@
 		                        </div>
 		                    </div>
 		                </div>
-		                <div class="components-drag draggable">
+		                <div class="components-drag draggable nav">
 		                    <div class="components-drag__base">
 		                        <span>导航组件</span>
 		                    </div>
@@ -340,8 +353,10 @@
 	                            <div class="layout-slider">
 									<div class="slider">
 							            <ul>
-							                <li data-img="static/images/1.jpg"></li>
-							                <li data-img="static/images/2.png"></li>
+							                <li data-index="0" data-img="static/images/1.jpg"></li>
+							                <li data-index="1" data-img="static/images/2.png"></li>
+							                <li data-index="2" data-img="static/images/3.png"></li>
+							                <li data-index="3" data-img="static/images/4.png"></li>
 							            </ul>
 							        </div>
 	                            </div>
@@ -528,8 +543,9 @@
 		<span>此处为footer部分，暂无内容（此处不可拖放组件）</span>
 	</div>
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="static/js/jquery-ui.min.js"></script> 
-    <script type="text/javascript" src="static/js/utils.js"></script>  
+    <script type="text/javascript" src="static/js/jquery-ui.js"></script> 
+    <script type="text/javascript" src="static/js/utils.js"></script> 
+    <script type="text/javascript" src="static/js/jq.Slide.js"></script> 
     <script type="text/javascript" src="static/js/components.js"></script>
 </body>
 

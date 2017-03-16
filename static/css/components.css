@@ -146,6 +146,7 @@
     display: none;
     font-size: 12px;
     color: #f60;
+    z-index: 100;
 }
 .components-op i {
 	cursor: pointer;
@@ -162,6 +163,11 @@
     width: 100%;
     min-height: 30px;
     margin: 8px 0;
+}
+.layout-1 {
+    width: 1200px;
+    min-height: 30px;
+    margin: 8px auto;
 }
 .layout-2 .layout-2__left {
     width: 220px;
@@ -325,6 +331,8 @@
     border-width: 0;
     padding: 1em 1.4em;
     background: none;
+    border: 1px solid #d8d8d8;
+    margin-top: -1px;
 }
 .layout-tab-content__wrapper .layout-tab-content p {
     line-height: 1.414em;
@@ -448,6 +456,7 @@
 .layout-slider .slider{
     position: relative;
     height: 300px;
+    overflow: hidden;
 }
 .layout-slider .slider ul{
     position: absolute;
@@ -459,13 +468,26 @@
     width: 100%;
     height: 300px;
     float: left;
-    display: none;
-    opacity: 0;
     transition: all 2s .4s ease;
+    display: none;
 }
-.layout-slider .slider ul li.current{
-    display: block;
+.layout-slider .slider ul.fade li{
+    opacity: 0;
+    position: absolute;
+    z-index: 0;
+}
+.layout-slider .slider ul.sliderX {
+    left: 0;
+}
+.layout-slider .slider ul.sliderX li{
+
+}
+.layout-slider .slider ul.fade li.current{
     opacity: 1;
+    z-index: 1;
+}
+.layout-slider .slider ul.sliderY {
+    bottom: 0;
 }
 .layout-slider .slider ol{
     position: absolute;

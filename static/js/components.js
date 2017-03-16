@@ -335,8 +335,8 @@ var components = function() {
                         }
                     },
                     dstop: function(event, ui) {
-                        $('.droppable').sortable({
-                            connectWith: '.droppable',
+                        $('.container .droppable').sortable({
+                            connectWith: '.container .droppable',
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
@@ -424,8 +424,8 @@ var components = function() {
                         }
                     },
                     dstop: function(event, ui) {
-                        $('.droppable').sortable({
-                            connectWith: '.droppable',
+                        $('.components-drag .droppable').sortable({
+                            connectWith: '.components-drag .droppable',
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
@@ -449,13 +449,17 @@ var components = function() {
         initImagesUI: function(){
             //图片组件
             utils.initDragSort({
-                draggable: '.images-ui .draggable',
+                draggable: '.slider-images.draggable',
                 connectToSortable: '.components-drag .droppable',
                 sortable: '.components-drag .droppable',
                 connectWith: '.components-drag .droppable',
+                unique: true,
                 callback: {
                     dstart: function(event, ui) {
                         ui.helper.css('cursor','move');
+                        console.log(ui)
+                        ui.helper.find('.components-drag__show').hide();
+                        ui.helper.find('.components-drag__base').show();
                     },
                     ddrag: function(event, ui) {
                         ui.helper.css({
@@ -472,8 +476,8 @@ var components = function() {
                         }
                     },
                     dstop: function(event, ui) {
-                        $('.droppable').sortable({
-                            connectWith: '.droppable',
+                        $('.components-drag .droppable').sortable({
+                            connectWith: '.components-drag .droppable',
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
@@ -485,10 +489,21 @@ var components = function() {
                         ui.helper.find('.components-drag__show').show();
                         ui.helper.find('.components-drag__base').hide();
                         if(ui.helper.find('.layout-slider').length>0){//轮播图插件
-                            utils.initSlider(ui.helper);
+                            utils.initSlider({
+                                target: ui.helper,
+                                effect: 'fadeIn',//fadeIn渐隐；slideX横向滚动；slideY纵向滚动
+                                time: 4000
+                            });
+                            //ui.helper.find('.slider').attr('id','slider');
+                            // var _script = document.createElement('script');
+                            // _script.type = "text/javascript";
+                            // _script.src = 'static/js/jq.Slide.js';
+
+                            // document.head.appendChild(_script);
+                            // //$('#components').before(_script);
+                            
                         }
-
-
+                        ui.helper.removeClass('ui-draggable ui-draggable-handle ui-draggable-dragging');
                     }
                 }
             });
