@@ -10,9 +10,6 @@ var utils = function(){
 	return {
         init: function(){
             utils.initEvent();
-            setTimeout(function(){
-                utils.initSlider();
-            },0);
         },
         initEvent: function(){
             //tab页切换
@@ -29,34 +26,30 @@ var utils = function(){
         initSlider: function(params){
             var _this = this,
                 obj = params && params.target;//外层容器
-            //$('.common-box .layout-slider').each(function(){
-            	//var obj = this;
-            	$(obj).find('.slider ul li').each(function(index,item){
-	                var _src = $(item).attr('data-img');
-	                $(item).css({
-	                    'background': 'url('+_src+') center center no-repeat'
-	                });
-	                if(index==0){
-	                    $(item).addClass('current');
-	                }
-	            });
-	            //生成轮播点
-	            var len = $(obj).find('.slider ul li').length;
-	            var olStr = '<ol>';
-	            for(var i=0; i<len; i++){
-	                if(i==0){
-	                    olStr += '<li class="current"></li>';
-	                }else{
-	                    olStr += '<li></li>';
-	                }
-	            }
-	            olStr += '</ol>';
-	            $(obj).find('.slider').append(olStr);
+        	$(obj).find('.slider ul li').each(function(index,item){
+                var _src = $(item).attr('data-img');
+                $(item).css({
+                    'background': 'url('+_src+') center center no-repeat'
+                });
+                if(index==0){
+                    $(item).addClass('current');
+                }
+            });
+            //生成轮播点
+            var len = $(obj).find('.slider ul li').length;
+            var olStr = '<ol>';
+            for(var i=0; i<len; i++){
+                if(i==0){
+                    olStr += '<li class="current"></li>';
+                }else{
+                    olStr += '<li></li>';
+                }
+            }
+            olStr += '</ol>';
+            $(obj).find('.slider').append(olStr);
 
-	            //初始化滚动
-	            _this.initScroll(params);
-            //})
-            
+            //初始化滚动
+            _this.initScroll(params);            
         },
 
         //轮播动画
