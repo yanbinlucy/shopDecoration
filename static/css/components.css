@@ -493,6 +493,7 @@
     position: absolute;
     bottom: 15px;
     right: 50%;
+    z-index: 1000;
 }
 .layout-slider .slider ol li{
     height: 6px;
@@ -598,13 +599,15 @@
     text-decoration: none;
 }
 .layout-notice-dialog {
-    width: 70%;
+    width: 1000px;
     background: #fff;
     border: 1px solid #d8d8d8;
     min-height: 300px;
     position: fixed;
     top: 50%;
+    left: 50%;
     margin-top: -150px;
+    margin-left: -500px;
     z-index: 100;
     display: none;
 }

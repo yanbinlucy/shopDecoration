@@ -61,8 +61,6 @@ var components = function() {
             });
             //删除图片上传
             $(document).delegate('.upload-wrapper i', 'click', function(e){
-                
-                console.log(curEdit)
                 //logo图片编辑框内删除
                 if(curEdit && $(curEdit).closest('.logo-drag').length){
                     $('.imggroup').show();
@@ -453,11 +451,10 @@ var components = function() {
                 connectToSortable: '.components-drag .droppable',
                 sortable: '.components-drag .droppable',
                 connectWith: '.components-drag .droppable',
-                unique: true,
+                //unique: true,
                 callback: {
                     dstart: function(event, ui) {
                         ui.helper.css('cursor','move');
-                        console.log(ui)
                         ui.helper.find('.components-drag__show').hide();
                         ui.helper.find('.components-drag__base').show();
                     },
@@ -491,17 +488,9 @@ var components = function() {
                         if(ui.helper.find('.layout-slider').length>0){//轮播图插件
                             utils.initSlider({
                                 target: ui.helper,
-                                effect: 'fadeIn',//fadeIn渐隐；slideX横向滚动；slideY纵向滚动
+                                effect: 'slideY',//fadeIn渐隐；slideX横向滚动；slideY纵向滚动
                                 time: 4000
                             });
-                            //ui.helper.find('.slider').attr('id','slider');
-                            // var _script = document.createElement('script');
-                            // _script.type = "text/javascript";
-                            // _script.src = 'static/js/jq.Slide.js';
-
-                            // document.head.appendChild(_script);
-                            // //$('#components').before(_script);
-                            
                         }
                         ui.helper.removeClass('ui-draggable ui-draggable-handle ui-draggable-dragging');
                     }

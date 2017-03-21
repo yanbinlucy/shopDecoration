@@ -7,7 +7,6 @@ var utils = function(){
 	$(document).ready(function(){
 		utils.init();
 	});
-    var timer = null;
 	return {
         init: function(){
             utils.initEvent();
@@ -25,12 +24,13 @@ var utils = function(){
                 $(this).closest('.layout-tab').find('.layout-tab-content').eq(_index).addClass('show').siblings().removeClass('show');
             });
         },
+
 		//banner轮播
         initSlider: function(params){
             var _this = this,
                 obj = params && params.target;//外层容器
-            $('.common-box .layout-slider').each(function(){
-            	var obj = this;
+            //$('.common-box .layout-slider').each(function(){
+            	//var obj = this;
             	$(obj).find('.slider ul li').each(function(index,item){
 	                var _src = $(item).attr('data-img');
 	                $(item).css({
@@ -55,7 +55,7 @@ var utils = function(){
 
 	            //初始化滚动
 	            _this.initScroll(params);
-            })
+            //})
             
         },
 
@@ -83,16 +83,54 @@ var utils = function(){
             });
             //绑定
             _olLi.on('click', function(e){
-                var _index = $(this).index();
-                    $(this).addClass('current').siblings().removeClass('current');
+                var _index = $(this).index(),
+                    _len = _ulLi.length;
+                $(this).addClass('current').siblings().removeClass('current');
                 if(effect=='fadeIn'){
                     _ulLi.eq(_index).addClass('current').siblings().removeClass('current');
-                }else if(effect=='slideX'){
-                    
-                }else if(effect=='slideY'){
-                       
+                }else if(effect=='slideX' || effect=='slideY'){
+                    var newArr = utils.genNumArr(_index, _len);
+
+                    var arr = [],
+                        arr1 = [],
+                        _ulLiStr = '';
+                    for(var i=0; i<newArr.length; i++){
+                        _ulLi.each(function(){
+                            var dataIndex = $(this).attr('data-index');
+                            var _str = $(this)[0].outerHTML;
+                            if(dataIndex==newArr[i]){
+                                _ulLiStr += _str;
+                            }
+                        });
+                    }
+                    $(obj).find('.slider ul').html(_ulLiStr);
+                    _this.manageInterval({
+                        target: obj,
+                        effect: effect,
+                        time: time,
+                        len: len,
+                        _ulLi: _ulLi,
+                        _olLi: _olLi,
+                        liWidth: liWidth,
+                        liLen: liLen
+                    });
                 }
             });
+        },
+
+        //该方法功能为输入num为数组的长度，并且数组中的元素为整数[0,num)(如输入4，数组为[0,1,2,3])，position为该数组中的某个值
+        //返回以position为起始的新数组，如输入(2,4)返回数组[2,3,0,1]
+        genNumArr: function(position, num){
+            var arr = [],//存放小于position值的数组
+                arr1 = [];//存放大于等于position值的数组
+            for(var i=0; i<num; i++){
+                if(i<position){
+                    arr.push(i);
+                }else{
+                    arr1.push(i);
+                }
+            }
+            return arr1.concat(arr);
         },
 
         manageInterval: function(params){
@@ -106,12 +144,16 @@ var utils = function(){
                 liWidth = params && params.liWidth,
                 liLen = params && params.liLen;
 
-            clearInterval(timer);
+            var dataTimer = $(obj).find('.slider ul').attr('data-timer');
+            clearInterval(dataTimer);
 
             $(obj).find('.slider ul li').show();
             if(effect=='fadeIn'){
-                $(obj).find('.slider ul').addClass('fade');
-                timer = setInterval(function(){
+                $(obj).find('.slider ul').attr({
+                    'class': '',
+                    'style': ''
+                }).addClass('fade');
+                obj.timer = setInterval(function(){
                     var _index = $(obj).find('.slider ul li.current').index();
                     if(_index==len-1){
                         _ulLi.eq(0).addClass('current').siblings().removeClass('current');
@@ -122,12 +164,15 @@ var utils = function(){
                     }
                 },time);
             }else if(effect=='slideX'){
-                $(obj).find('.slider ul').addClass('sliderX');
+                $(obj).find('.slider ul').attr({
+                    'class': '',
+                    'style': ''
+                }).addClass('sliderX');
 
                 $(obj).find('.slider ul').width(liWidth*liLen);
                 $(obj).find('.slider ul li').width(liWidth);
 
-                timer = setInterval(function(){
+                obj.timer = setInterval(function(){
                     $(obj).find('.slider ul').animate({ 
                         left: -liWidth
                     },1000,'linear',function(){
@@ -141,10 +186,13 @@ var utils = function(){
                     }); 
                 },time);
             }else if(effect=='slideY'){
-                $(obj).find('.slider ul').addClass('slideY');
+                $(obj).find('.slider ul').attr({
+                    'class': '',
+                    'style': ''
+                }).addClass('slideY');
 
                 var liHeight = $(obj).find('.slider').height();
-                timer = setInterval(function(){
+                obj.timer = setInterval(function(){
                     $(obj).find('.slider ul').animate({ 
                         bottom: -liHeight
                     },1000,'linear',function(){
@@ -158,6 +206,9 @@ var utils = function(){
                     }); 
                 },time);
             }
+
+            var objTimer = obj && obj.timer;
+            $(obj).find('.slider ul').attr('data-timer',objTimer);
         },
         /**
          * 初始化拖拽排序
