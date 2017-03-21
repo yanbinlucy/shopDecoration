@@ -493,7 +493,7 @@
     position: absolute;
     bottom: 15px;
     right: 50%;
-    z-index: 1000;
+    z-index: 888;
 }
 .layout-slider .slider ol li{
     height: 6px;
