@@ -311,9 +311,9 @@ var components = function() {
             //基础组件
             utils.initDragSort({
                 draggable: '.common-ui .draggable',
-                connectToSortable: '.container .droppable',
-                sortable: '.container .droppable',
-                connectWith: '.container .droppable',
+                connectToSortable: '.container .root-droppable',
+                sortable: '.container .root-droppable',
+                connectWith: '.container .root-droppable',
                 callback: {
                     dstart: function(event, ui) {
                         ui.helper.css('cursor','move');
@@ -333,8 +333,8 @@ var components = function() {
                         }
                     },
                     dstop: function(event, ui) {
-                        $('.container .droppable').sortable({
-                            connectWith: '.container .droppable',
+                        $('.container .root-droppable').sortable({
+                            connectWith: '.container .root-droppable',
                             opacity: .35,
                             placeholder: "ui-state-highlight"
                         });
@@ -488,7 +488,7 @@ var components = function() {
                         if(ui.helper.find('.layout-slider').length>0){//轮播图插件
                             utils.initSlider({
                                 target: ui.helper,
-                                effect: 'slideY',//fadeIn渐隐；slideX横向滚动；slideY纵向滚动
+                                effect: 'slideX',//fadeIn渐隐；slideX横向滚动；slideY纵向滚动
                                 time: 4000
                             });
                         }

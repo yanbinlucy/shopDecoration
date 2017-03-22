@@ -35,6 +35,7 @@ var utils = function(){
                     $(item).addClass('current');
                 }
             });
+            $(obj).find('.slider ol').remove();
             //生成轮播点
             var len = $(obj).find('.slider ul li').length;
             var olStr = '<ol>';
